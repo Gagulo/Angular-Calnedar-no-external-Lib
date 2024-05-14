@@ -9,4 +9,9 @@ import { CalendarComponent } from './calendar/calendar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {}
+export class AppComponent {
+  meetings = {
+    '2024-05-05': ['Dring Coffee', 'Learn Angular', 'Sleep'],
+    '2024-05-06': ['Dring Coffee', 'Learn Angular', 'Sleep']
+  };
+}

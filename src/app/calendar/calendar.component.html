@@ -1,0 +1,26 @@
+<div class="calendar-container">
+  <div class="calendar">
+    <div class="calendar-headline">
+      <div class="calendar-headline-month">
+        {{ firstDayOfTheMonth().monthShort }}
+        {{ firstDayOfTheMonth().year }}
+      </div>
+      <div class="calendar-headline-controls">
+        <div class="calendar-headline-control"><<</div>
+        <div class="calendar-headline-control calendar-headline-control-today">Today</div>
+        <div class="calendar-headline-control">>></div>
+      </div>
+    </div>
+    <div class="calendar-weeks-grid">
+      @for (weekDay of weekDays(); track $index) {
+        <div class="calendar-weeks-grid-cell">{{ weekDay }}</div>
+      }
+    </div>
+    <div class="calendar-weeks-grid">
+      @for (dayOfMonth of daysOfMonth(); track $index) {
+        <div [ngClass]="{ 'calendar-grid-cell': true }">{{ dayOfMonth.day }}</div>
+      }
+    </div>
+  </div>
+  <div class="schedule"></div>
+</div>

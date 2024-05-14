@@ -6,9 +6,9 @@
         {{ firstDayOfTheMonth().year }}
       </div>
       <div class="calendar-headline-controls">
-        <div class="calendar-headline-control"><<</div>
-        <div class="calendar-headline-control calendar-headline-control-today">Today</div>
-        <div class="calendar-headline-control">>></div>
+        <div class="calendar-headline-control" (click)="gotToPreviousMonth()"><<</div>
+        <div class="calendar-headline-control calendar-headline-control-today" (click)="gotToToday()">Today</div>
+        <div class="calendar-headline-control" (click)="gotToNextMonth()">>></div>
       </div>
     </div>
     <div class="calendar-weeks-grid">

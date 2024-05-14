@@ -1,6 +1,7 @@
-import { Component, computed, InputSignal, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, input, InputSignal, signal, Signal, WritableSignal } from '@angular/core';
 import { DateTime, Info, Interval } from 'luxon';
 import { CommonModule } from '@angular/common';
+import { Meetings } from './meetings.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -10,6 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './calendar.component.css'
 })
 export class CalendarComponent {
+  meetings: InputSignal<Meetings> = input.required();
+
+  activeDay: WritableSignal<DateTime | null> = signal(null);
   today: Signal<DateTime> = signal(DateTime.local());
   firstDayOfTheMonth: WritableSignal<DateTime> = signal(this.today().startOf('month'));
   weekDays: Signal<string[]> = signal(Info.weekdays('short'));
@@ -25,5 +29,13 @@ export class CalendarComponent {
         }
         return day.start;
       });
+  });
+  DATE_MEDIUM = DateTime.DATE_MED;
+  activeDayMeetings: Signal<string[]> = computed(() => {
+    const activeDay = this.activeDay();
+    if (activeDay === null) return [];
+    const activeDayISO = activeDay.toISODate();
+    if (!activeDayISO) return [];
+    return this.meetings()[activeDayISO] ?? [];
   });
 }

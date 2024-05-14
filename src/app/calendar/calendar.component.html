@@ -18,9 +18,34 @@
     </div>
     <div class="calendar-weeks-grid">
       @for (dayOfMonth of daysOfMonth(); track $index) {
-        <div [ngClass]="{ 'calendar-grid-cell': true }">{{ dayOfMonth.day }}</div>
+        <div
+          [ngClass]="{
+            'calendar-grid-cell': true,
+            'calendar-grid-cell-active': activeDay()?.toISODate() === dayOfMonth.toISODate(),
+            'calendar-grid-cell-inactive': dayOfMonth.month !== firstDayOfTheMonth().month
+          }"
+          (click)="activeDay.set(dayOfMonth)">
+          {{ dayOfMonth.day }}
+        </div>
       }
     </div>
   </div>
-  <div class="schedule"></div>
+  <div class="schedule">
+    <div class="schedule-headline">
+      @if (activeDay(); as activeDay) {
+        <div>{{ activeDay.toLocaleString(DATE_MEDIUM) }}</div>
+      } @else {
+        <div>Please select a day</div>
+      }
+    </div>
+    @if (activeDay() && activeDayMeetings().length === 0) {
+      <div>No Planned meetings</div>
+    }
+
+    @if (activeDay() && activeDayMeetings().length > 0) {
+      @for (meeting of activeDayMeetings(); track $index) {
+        <div>{{ meeting }}</div>
+      }
+    }
+  </div>
 </div>

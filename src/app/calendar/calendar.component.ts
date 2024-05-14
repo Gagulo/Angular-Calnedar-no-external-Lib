@@ -38,4 +38,16 @@ export class CalendarComponent {
     if (!activeDayISO) return [];
     return this.meetings()[activeDayISO] ?? [];
   });
+
+  gotToPreviousMonth(): void {
+    this.firstDayOfTheMonth.set(this.firstDayOfTheMonth().minus({ month: 1 }));
+  }
+
+  gotToNextMonth(): void {
+    this.firstDayOfTheMonth.set(this.firstDayOfTheMonth().plus({ month: 1 }));
+  }
+
+  gotToToday(): void {
+    this.firstDayOfTheMonth.set(this.today().startOf('month'));
+  }
 }
